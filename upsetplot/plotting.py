@@ -792,10 +792,14 @@ class UpSet:
                 }
             )
         )
-        styles["linewidth"].fillna(1, inplace=True)
-        styles["facecolor"].fillna(self._facecolor, inplace=True)
-        styles["edgecolor"].fillna(styles["facecolor"], inplace=True)
-        styles["linestyle"].fillna("solid", inplace=True)
+        styles.fillna({
+            "linewidth": 1,
+            "facecolor": self._facecolor,
+            "edgecolor": styles["facecolor"],
+            "linestyle": "solid"
+            }, 
+            inplace=True
+        )
         del styles["hatch"]  # not supported in matrix (currently)
 
         x = np.repeat(np.arange(len(data)), n_cats)
